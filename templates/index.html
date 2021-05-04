@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title> Index </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+      <h1 align="center">Benchmark between hadoop and spark</h1>
+      <p></p>
+      <h2> Application : {{nameapplication}}</h2>
+      <h1> Node status: </h1>
+      <p> {{status_cluster}} </p>
+      <h1> Cluster topology: </h1>
+      <p> {{topology}} </p>
+      <h1> Hadoop cluster report: </h1>
+      <p> {{report}} </p>
+      <h1> HDFS status </h1>
+      <p> {{hdfs}} </p>
+  <div class="row-6">
+    <div class="col-6">
+      {% for image in images %}
+           <img src="{{ url_for('static', filename='' + image) }}">
+      {% endfor %}
+    </div>
+  </div>      
+</body>
+</html>
