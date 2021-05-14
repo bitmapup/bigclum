@@ -105,13 +105,13 @@ def getDataCollectd(elapsed_time,output):
             df3.to_csv(collectd+c+"/load_fifteen.csv",index=False)
 
 def getDataNagios():
-    status_cluster = os.system("/usr/lib/nagios/plugins/check_cluster -s -l 'My Cluster' -c 1 -d 0,0,0")
+    status_cluster = os.popen("/usr/lib/nagios/plugins/check_cluster -s -l 'My Cluster' -c 1 -d 0,0,0").read()
     return status_cluster
 
 def getDataClusterHadoop():
-    topology = os.system("hdfs dfsadmin -printTopology")
-    report = os.system("hdfs dfsadmin -report")
-    hdfs = os.system("hdfs fsck /")
+    topology = os.popen("hdfs dfsadmin -printTopology").read()
+    report = os.popen("hdfs dfsadmin -report").read()
+    hdfs = os.popen("hdfs fsck /").read()
     return topology,report,hdfs
 
 def graph(list_dataframe,metric,inputGraph):
@@ -139,7 +139,7 @@ def graph(list_dataframe,metric,inputGraph):
         showlegend=True,
         font=dict(
             family="Times New Roman",
-            size=15
+            size=18
         )
     ),
     fig.update_layout(legend=dict(
@@ -149,8 +149,8 @@ def graph(list_dataframe,metric,inputGraph):
     xanchor="right",
     x=1,
          font=dict(
-            family="sans-serif",
-            size=10,
+            family="Times New Roman",
+            size=18,
             color="black"
         )
     ))
@@ -196,7 +196,7 @@ def graph2(list_dataframe,metric,inputGraph):
         showlegend=True,
         font=dict(
             family="Times New Roman",
-            size=15
+            size=18
         )
     ),
     fig.update_layout(legend=dict(
@@ -206,8 +206,8 @@ def graph2(list_dataframe,metric,inputGraph):
     xanchor="right",
     x=1,
          font=dict(
-            family="sans-serif",
-            size=10,
+            family="Times New Roman",
+            size=18,
             color="black"
         )
     ))
@@ -272,6 +272,7 @@ if __name__ == "__main__":
         RRDHADOOP = NAMEAPPLICATION+"/"+TECHNOLOGICS[0]
         RRDSPARK = NAMEAPPLICATION+"/"+TECHNOLOGICS[1]
         DATASET = (config.get('path','dataset')).strip("'")
+        IP = (config.get('path','ip')).strip("'")
         for path in [RRDHADOOP,RRDSPARK]:
             makeFolder(path)
         METRICS = (config.get('metrics','metric')).strip("'").split(",")
@@ -289,4 +290,4 @@ if __name__ == "__main__":
         status_cluster,topology,report,hdfs= reportCluster()
         makeGraphic(NAMEAPPLICATION+"/",GRAPHICS)
         # Flask
-        app.run(host="172.250.1.38",port=5001)
+        app.run(host=IP,port=5000)
