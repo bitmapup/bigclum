@@ -13,7 +13,7 @@
 * codes: folder where the Spark code, Hadoop code, and dataset are.
 * templates: folder where the html file is.
 * static: folder where the images are saved.
-* ip: ip of the master node. To know ip use the command "ifconfig"
+* ip: ip of the master node. To know ip use the command "ifconfig".
 * bigclum.py: It's a python script where Hadoop code and Spark code are executed in the cluster and monitoring data collection.
 * config.cfg: configuration file containing.
    -inputHadoopPath: Hadoop code path.
